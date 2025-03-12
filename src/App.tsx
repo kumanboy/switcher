@@ -1,11 +1,9 @@
+import FormContact from "./components/FormContact.tsx";
 
-import Switcher from "./components/Switcher.tsx";
-import "./index.css"
 const App = () => {
-
     return (
         <div>
-            <Switcher/>
+            <FormContact/>
         </div>
     )
 }
