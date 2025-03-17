@@ -1,31 +1,29 @@
 import * as React from "react";
 import {useState} from "react";
-type DataType = {
-    name: string,
-    number: string,
-    id:number
-}
-const FormContact = () => {
+import {DataType} from "../data.ts";
+// import {data as userData} from '../data.ts'
+// import {DataType} from "../data.ts";
+// export const [data, setData] = useState<DataType[]>(userData);
+// interface FormContactProp{
+//     data: DataType;
+//     setData:
+// }
+const FormContact = ({dataUser,setDataUser}:{dataUser:DataType[],setDataUser:(dataUser:DataType[])=>void}) => {
     const [name, setName] = useState<string>("");
     const [number, setNumber] = useState<string>("");
-    const [data, setData] = useState<DataType[]>([
-        {
-            name: "",
-            number: "",
-            id:0
-        }
-    ]);
-
-   const handleSubmit=(e: React.FormEvent<HTMLFormElement>)=>{
-       e.preventDefault()
-       if(name === "" || number === "" || number === "") return;
-       setData(
-          [...data, {name:name, number:number, id:Math.random()}]
-       )
-
-   }
 
 
+    const handleSubmit=(e: React.FormEvent<HTMLFormElement>):void=>{
+        e.preventDefault()
+        if(name === "" || number === "") return;
+        setDataUser(
+            [...dataUser, {name:name, number:number, id:Date.now() }]
+        );
+        setName("");
+        setNumber("");
+
+    };
+    console.log(dataUser)
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -44,14 +42,13 @@ const FormContact = () => {
                 <button type="submit">Submit</button>
             </form>
             <section >
-                {data.map((item) => (
+                {dataUser.map((item:DataType) => (
                     <div key={Math.random()} style={{display: item.name===''&& item.number==='' && item.id===0 ? 'none': 'inline'}}>
                         <li>{item.name} - {item.number}</li>
                     </div>
 
                 ))}
             </section>
-
         </div>
     )
 }
